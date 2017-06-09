@@ -78,6 +78,9 @@
     <Compile Include="Domain\TokenMapping.cs" />
     <Compile Include="Domain\TokenTypes.cs" />
     <Compile Include="Domain\BaseTokenizer.cs" />
+    <Compile Include="UI\CodeWithLanguage.cs" />
+    <Compile Include="UI\IMessageParser.cs" />
+    <Compile Include="UI\ParserByDocument.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

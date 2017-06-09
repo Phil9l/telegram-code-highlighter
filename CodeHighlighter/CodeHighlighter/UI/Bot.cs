@@ -15,8 +15,15 @@ namespace CodeHighlighter.UI
 {
     internal class TelegramBot
     {
-        private readonly TelegramBotClient bot = new TelegramBotClient("Token");
+        private readonly TelegramBotClient bot = new TelegramBotClient("393926966:AAG158H_fhtctWo97uTB8R0ZQIgQDdq02Zc");
         private readonly Dictionary<string, bool> cancelled = new Dictionary<string, bool>();
+
+        public TelegramBot(IMessageParser[] parsers)
+        {
+            Parsers = parsers;
+        }
+
+        public IMessageParser[] Parsers { get; set; }
 
         public void Serve()
         {
@@ -37,56 +44,44 @@ namespace CodeHighlighter.UI
             if (message == null || message.Type != MessageType.TextMessage &&
                 message.Type != MessageType.DocumentMessage) return;
 
-            if (message.Type == MessageType.DocumentMessage)
-            {
-                var username = message.Chat.Username;
-                cancelled[username] = false;
+            if (message.Type == MessageType.TextMessage)
+                return; // Not supported
 
-                var file = await bot.GetFileAsync(message.Document.FileId);
+            var username = message.Chat.Username;
+            cancelled[username] = false;
 
-                var filename = message.Document.FileName;
-                var filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+            var codeAndLanguage = await GetCodeFromMessage(message);
+            var highlighter = new Highlighter();
+            var text = codeAndLanguage.Code;
+            text = text.Replace("\r\n", "\n"); // For windows newlines
+            var tokens = highlighter.TokenizeSourceCode(text, new PyTokenizer()); // Change to selection
+            var result = highlighter.HtmlHighlight(tokens);
+            var page = highlighter.GetHTMLPage("python", "python", result);
+            var path = "Z:\\home\\localhost\\www\\"; // Path to web folder
+            var randomName = Guid.NewGuid().ToString();
+            File.WriteAllText(path + randomName + ".html", page);
 
-                using (var saveDocumentStream = File.Open(filename, FileMode.Create))
-                {
-                    await file.FileStream.CopyToAsync(saveDocumentStream);
-                }
-
-                await bot.SendTextMessageAsync(message.Chat.Id, "Thx for the code");
-
-                var keyboard = new InlineKeyboardMarkup(new[]
-                {
-                    new[]
-                    {
-                        new InlineKeyboardButton("Python"),
-                        new InlineKeyboardButton("C++"),
-                        new InlineKeyboardButton("Cancel")
-                    }
-                });
-
-                await bot.SendTextMessageAsync(message.Chat.Id, "Choose your language!",
-                    replyMarkup: keyboard);
-
-                var highlighter = new Highlighter();
-                var text = File.ReadAllText(filename);
-                text = text.Replace("\r\n", "\n"); // For windows newlines
-                var tokens = highlighter.TokenizeSourceCode(text, new PyTokenizer()); // Change to selection
-                var result = highlighter.HtmlHighlight(tokens);
-                var page = highlighter.GetHTMLPage("python", "python", result);
-                var path = "Z:\\home\\localhost\\www\\"; // Path to web folder
-                File.WriteAllText(path + filenameWithoutExtension + ".html", page);
-
-                if (!cancelled[username])
-                    await bot.SendTextMessageAsync(message.Chat.Id,
-                        "Here is your link: http://127.0.0.1/" + filenameWithoutExtension + ".html");
-            }
+            if (!cancelled[username])
+                await bot.SendTextMessageAsync(message.Chat.Id,
+                    "Here is your link: http://127.0.0.1/" + randomName + ".html");
             else
             {
-                var usage = "Upload your code by document to make it look awesome";
+                const string usage = "Upload your code by document to make it look awesome";
 
                 await bot.SendTextMessageAsync(message.Chat.Id, usage,
                     replyMarkup: new ReplyKeyboardHide());
             }
+        }
+
+        private async Task<CodeWithLanguage> GetCodeFromMessage(Message message)
+        {
+            foreach (var messageParser in Parsers)
+            {
+                var result = await messageParser.Parse(message, bot);
+                if (result.Code != "")
+                    return result;
+            }
+            return new CodeWithLanguage("", "");
         }
 
         private async void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs callbackQueryEventArgs)

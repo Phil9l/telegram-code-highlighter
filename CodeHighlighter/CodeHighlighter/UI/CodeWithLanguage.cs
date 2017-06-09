@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace CodeHighlighter.UI
 {
-    struct CodeWithLanguage
+    public struct CodeWithLanguage
     {
         public string Code;
         public string Language;
+
+        public CodeWithLanguage(string code, string language)
+        {
+            Code = code;
+            Language = language;
+        }
     }
 }

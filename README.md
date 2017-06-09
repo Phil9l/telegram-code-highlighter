@@ -24,4 +24,5 @@ ID бота в Телеграме: @oophighlighterbot
   * Один из стандартных сайтов для передачи кода (pastebin.com, gist.github.com и т.д.)
 
 ### DI
-In progress...
+
+* [Program.cs#L16](https://github.com/Phil9l/telegram-code-highlighter/blob/master/CodeHighlighter/CodeHighlighter/Program.cs#L16) — собирает все парсеры в точке сборки.
