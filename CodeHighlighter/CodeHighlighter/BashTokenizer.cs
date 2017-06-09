@@ -18,7 +18,6 @@ namespace CodeHighlighter
             new TokenMapping("\"[^\"]*\"", TokenTypes.STRING),
             new TokenMapping("'[^']*'", TokenTypes.STRING),
             new TokenMapping(@"\d+", TokenTypes.NUMBER),
-            new TokenMapping(@"\d+.\d+", TokenTypes.NUMBER),
             new TokenMapping(@"(\+=|-=|/=|\*=|==|<|>|<=|>=|\+|-|\*|/|\*\*|//|:|\[|\]|\(|\)|`|%|%=|!=)", TokenTypes.OP),
             new TokenMapping(@"\d*[A-Za-z_$][A-Za-z0-9_$\{}#]*", TokenTypes.NAME),
             new TokenMapping("\n", TokenTypes.LINE_BREAK)

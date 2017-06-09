@@ -113,6 +113,8 @@ namespace CodeHighlighter
             foreach (var tokenMapping in Tokens)
             {
                 var v = Regex.Match(line, tokenMapping.RegularExpression);
+                if(!v.Success)
+                    continue;
                 if (nearestIndex == -1 || v.Index < nearestIndex)
                     result = new ParsedData(v, tokenMapping.Type);
             }

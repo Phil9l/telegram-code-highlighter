@@ -13,6 +13,7 @@ namespace CodeHighlighter
             foreach (var token in tokens)
             {
                 Console.WriteLine(token.Content);
+                Console.WriteLine(token.Type);
             }
 
 
