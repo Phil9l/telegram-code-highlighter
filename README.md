@@ -1,1 +1,3 @@
-# telegram-highliter-bot
+# telegram-highlighter-bot
+
+Makes your code look awesome
