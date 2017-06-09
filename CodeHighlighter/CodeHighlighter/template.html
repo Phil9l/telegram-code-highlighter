@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> {0} </title>
+    <style type="text/css">
+        * {{
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }}
+
+        body {{
+            position: relative;
+        }}
+
+        
+        .comment {{
+            color: crimson;
+        }}
+
+        .docstring {{
+            color: #BA2121;
+            font-style: italic;
+        }}
+
+        .builtin {{
+            color: #AA22FF;
+            font-weight: bold;
+        }}
+
+        .definition {{
+            color: darkorange;
+            font-weight: bold;
+        }}
+
+        .string {{
+            color: #BA2121;
+        }}
+
+        .operator {{
+            color: #8B641B;
+            font-weight: bold;
+        }}
+
+        .import {{
+            color: #5a5;
+        }}
+
+        .library {{
+            color: #aa5;
+        }}
+
+        .magic-method {{
+            color: #277;
+        }}
+
+        .keyword {{
+            color: #008000;
+            font-weight: bold;
+        }}
+
+        .defname {{
+            color: #0000FF;
+        }}
+
+        .number {{
+            color: #666666;
+        }}
+
+        .variable {{
+            color: orange;
+        }}
+
+        .decorator {{
+            color: LightCoral;
+            font-weight: bold;
+        }}
+
+        .content-block {{
+            display: inline;
+        }}
+
+        .content {{
+            display: inline;
+        }}
+
+        .toggle {{
+            position: absolute;
+            left: 1px;
+            cursor: pointer;
+            border: solid 1px black;
+            height: 12px;
+            line-height: 12px;
+            display: none;
+        }}
+
+        .incorrect-name {{
+            border-bottom: 2px dotted red;
+        }}
+
+        .line-container {{
+            display: inline;
+            display: none;
+        }}
+
+        .line {{
+            display: inline-block;
+            width: 100px;
+            border: solid black 1px;
+        }}
+
+        #border {{
+            position: absolute;
+            border-right: 1px solid #e55;
+            height: 100%;
+        }}
+
+        #border span {{
+            visibility: hidden;
+        }}
+    </style>
+</head>
+<body>
+    <div id="border"><span>01234567890123456789012345678901234567890123456789012345678901234567890123456789</span></div>
+    <pre class="{1}">{2}</pre>
+</body>
+</html>

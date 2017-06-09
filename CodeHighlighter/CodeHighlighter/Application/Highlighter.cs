@@ -3,6 +3,7 @@ using CodeHighlighter.Domain;
 using System;
 using System.Net;
 using System.Text;
+using System.IO;
 
 namespace CodeHighlighter.Application
 {
@@ -155,6 +156,15 @@ namespace CodeHighlighter.Application
                 }
             }
             return String.Join("", result);
+        }
+
+        public string GetHTMLPage(string template, string title, string className, string content) {
+            return String.Format(template, title, className, content);
+        }
+
+        public string GetHTMLPage(string title, string className, string content) {
+            string template = File.ReadAllText("template.html");
+            return GetHTMLPage(template, title, className, content);
         }
     }
 
