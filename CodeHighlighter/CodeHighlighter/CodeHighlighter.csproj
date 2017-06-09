@@ -63,6 +63,8 @@
   <ItemGroup>
     <Compile Include="Application\HtmlPosition.cs" />
     <Compile Include="Application\HtmlRenderer.cs" />
+    <Compile Include="Application\ResultToken.cs" />
+    <Compile Include="Tests\PyTokenizer_should.cs" />
     <Compile Include="Tests\TestTokenizer.cs" />
     <Compile Include="UI\Bot.cs" />
     <Compile Include="Application\Highlighter.cs" />
@@ -83,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="template.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,6 @@
-﻿using CodeHighlighter.Domain.Tokenizers;
+﻿using System.IO;
+using CodeHighlighter.Application;
+using CodeHighlighter.Domain.Tokenizers;
 using CodeHighlighter.UI;
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -9,14 +11,12 @@ namespace CodeHighlighter
     {
         private static void Main(string[] args)
         {
-            //var tokenizer = new PyTokenizer();
-            //var tokens = tokenizer.Tokenize(new List<string> { "def f(x):", "   return x + 5" });
-            //foreach (var token in tokens)
-            //{
-            //    Console.WriteLine(token.Content);
-            //    Console.WriteLine(token.Type);
-            //}
-
+            //var text = "def f(x):\n\treturn x + 1";
+            //var highlighter = new Highlighter();
+            //var tokens = highlighter.TokenizeSourceCode(text, new PyTokenizer());
+            //var result = highlighter.HtmlHighlight(tokens);
+            //var page = highlighter.GetHTMLPage("python", "python", result);
+            //File.WriteAllText("test.html", page);
 
             var container = new StandardKernel();
 
