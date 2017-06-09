@@ -9,7 +9,7 @@ namespace CodeHighlighter
     {
         private static void Main(string[] args)
         {
-            var tokenizer = new PyTokenizer();
+            //var tokenizer = new PyTokenizer();
             //var tokens = tokenizer.Tokenize(new List<string> { "def f(x):", "   return x + 5" });
             //foreach (var token in tokens)
             //{
@@ -18,16 +18,15 @@ namespace CodeHighlighter
             //}
 
 
-            //var container = new StandardKernel();
+            var container = new StandardKernel();
 
             //container.Bind(kernel => kernel
             //    .FromThisAssembly()
             //    .SelectAllClasses()
             //    .InheritedFrom<IC>()
             //    .BindAllInterfaces());
-            //var bot = container.Get<TelegramBot>();
-            //bot.Serve();
-            //TelegramBot.Serve();
+            var bot = container.Get<TelegramBot>();
+            bot.Serve();
         }
     }
 }

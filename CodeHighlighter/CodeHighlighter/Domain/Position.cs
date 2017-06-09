@@ -2,29 +2,14 @@
 {
     public struct Position
     {
-        private int lineIndex, charIndex;
-        public int LineIndex {
-            get {
-                return lineIndex;
-            }
-            set {
-                lineIndex = value;
-            }
-        }
-        public int CharIndex {
-            get {
-                return charIndex;
-            }
-            set {
-                charIndex = value;
-            }
-        }
-        private object p;
+        public int LineIndex { get; set; }
 
-        public Position(int lineIndex, object p) : this()
+        public int CharIndex { get; set; }
+
+        public Position(int lineIndex, int charIndex)
         {
-            this.lineIndex = lineIndex;
-            this.p = p;
+            LineIndex = lineIndex;
+            CharIndex = charIndex;
         }
     }
 }

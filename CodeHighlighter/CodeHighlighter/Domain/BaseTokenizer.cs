@@ -88,26 +88,26 @@ namespace CodeHighlighter.Domain
                 index++;
                 foreach (var token in HandleLine(line, index))
                 {
-                    if (token.Type == TokenTypes.Indent)
+                    switch (token.Type)
                     {
-                        currentIndent++;
-                        if (currentIndent > indent)
-                        {
-                            indent = currentIndent;
-                            token.Type = TokenTypes.NewIndent;
-                        }
-                    }
-                    else if (token.Type == TokenTypes.LineBreak)
-                    {
-                        currentIndent = 0;
-                    }
-                    else
-                    {
-                        while (indent > currentIndent)
-                        {
-                            indent--;
-                            yield return new Token(TokenTypes.Dedent, "", token.Start, token.Start);
-                        }
+                        case TokenTypes.Indent:
+                            currentIndent++;
+                            if (currentIndent > indent)
+                            {
+                                indent = currentIndent;
+                                token.Type = TokenTypes.NewIndent;
+                            }
+                            break;
+                        case TokenTypes.LineBreak:
+                            currentIndent = 0;
+                            break;
+                        default:
+                            while (indent > currentIndent)
+                            {
+                                indent--;
+                                yield return new Token(TokenTypes.Dedent, "", token.Start, token.Start);
+                            }
+                            break;
                     }
                     yield return token;
                 }

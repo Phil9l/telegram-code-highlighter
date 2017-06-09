@@ -44,6 +44,7 @@ namespace CodeHighlighter.UI
                 var file = await bot.GetFileAsync(message.Document.FileId);
 
                 var filename = message.Document.FileName;
+                var filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
 
                 using (var saveDocumentStream = File.Open(filename, FileMode.Create))
                 {
@@ -70,7 +71,7 @@ namespace CodeHighlighter.UI
 
                 if (!cancelled[username])
                     await bot.SendTextMessageAsync(message.Chat.Id,
-                        "Here is your link: http://www.youtube.com!");
+                        "Here is your link: http://127.0.0.1/" + filenameWithoutExtension + ".html");
             }
             else
             {

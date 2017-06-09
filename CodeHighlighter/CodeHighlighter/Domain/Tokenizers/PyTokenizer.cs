@@ -14,7 +14,7 @@ namespace CodeHighlighter.Domain.Tokenizers
         public override List<TokenMapping> Tokens => new List<TokenMapping>
         {
             new TokenMapping("^    ", TokenTypes.Indent),
-            new TokenMapping(@"#!.*$", TokenTypes.Comment),
+            new TokenMapping(@"#.*$", TokenTypes.Comment),
             new TokenMapping(@"__\w+__", TokenTypes.MagicMethod),
             new TokenMapping(@"@\w+", TokenTypes.Decorator),
             new TokenMapping("\"[^\"]*\"", TokenTypes.String),

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace CodeHighlighter.Application
 {
-    class HtmlRenderer
+    internal class HtmlRenderer
     {
-        private Tuple<string, HtmlPosition> CombineRange(List<string> lines, HtmlPosition start, HtmlPosition end)
+        private Tuple<string, HtmlPosition> CombineRange(IReadOnlyList<string> lines, HtmlPosition start, HtmlPosition end)
         {
             if (start.Row == end.Row)
                 return new Tuple<string, HtmlPosition>
                     (lines[start.Row - 1].Substring(start.Column, end.Column - start.Column), end);
             var sb = new StringBuilder(lines[start.Row - 1].Substring(start.Column));
-            for (int i = start.Row; i < end.Row - 1; i++)
+            for (var i = start.Row; i < end.Row - 1; i++)
             {
                 sb.Append(lines[i]);
             }
