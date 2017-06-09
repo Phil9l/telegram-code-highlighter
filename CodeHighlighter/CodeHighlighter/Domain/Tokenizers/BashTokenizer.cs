@@ -101,8 +101,8 @@ namespace CodeHighlighter.Domain.Tokenizers
             "elif"
         };
 
-        public override string Variable => "";
-        public override bool CheckVariable => false;
+        public override string Variable => @"^\$\{?[A-Za-z0-9_$#]+\}?$";
+        public override bool CheckVariable => true;
         public override string CorrectName => @"^[A-Za-z_$#]\w*$";
     }
 }
