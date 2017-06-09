@@ -10,12 +10,12 @@ namespace CodeHighlighter
         static void Main(string[] args)
         {
             var tokenizer = new PyTokenizer();
-            var tokens = tokenizer.Tokenize(new List<string> { "def f(x):", "   return x + 5" });
-            foreach (var token in tokens)
-            {
-                Console.WriteLine(token.Content);
-                Console.WriteLine(token.Type);
-            }
+            //var tokens = tokenizer.Tokenize(new List<string> { "def f(x):", "   return x + 5" });
+            //foreach (var token in tokens)
+            //{
+            //    Console.WriteLine(token.Content);
+            //    Console.WriteLine(token.Type);
+            //}
 
 
             //var container = new StandardKernel();
