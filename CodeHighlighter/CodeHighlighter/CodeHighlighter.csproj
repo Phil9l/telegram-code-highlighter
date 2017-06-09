@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="UI\Bot.cs" />
     <Compile Include="Application\Highlighter.cs" />
     <Compile Include="Domain\ParsedData.cs" />
