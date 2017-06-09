@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeHighlighter.Tokenizers;
 using Ninject;
 
 namespace CodeHighlighter
@@ -9,7 +10,7 @@ namespace CodeHighlighter
         static void Main(string[] args)
         {
             var tokenizer = new PyTokenizer();
-            var tokens = tokenizer.Tokenize(new List<string> { "1 2" });
+            var tokens = tokenizer.Tokenize(new List<string> { "def f(x):", "   return x + 5" });
             foreach (var token in tokens)
             {
                 Console.WriteLine(token.Content);

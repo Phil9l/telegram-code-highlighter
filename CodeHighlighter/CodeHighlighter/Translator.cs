@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace CodeHighlighter
 {
     public enum TokenTypes
     {
-        COMMENT,
-        NUMBER,
-        OP,
-        STRING,
-        INDENT,
-        DEDENT,
-        NAME,
-        BUILTIN,
-        KEYWORD,
-        LINE_BREAK,
-        NEW_INDENT,
-        INCORRECT_NAME,
-        VARIABLE,
-        IMPORT,
-        LIBRARY,
-        MAGIC_METHOD,
-        DECORATOR
+        Comment,
+        Number,
+        Op,
+        String,
+        Indent,
+        Dedent,
+        Name,
+        Builtin,
+        Keyword,
+        LineBreak,
+        NewIndent,
+        IncorrectName,
+        Variable,
+        Import,
+        Library,
+        MagicMethod,
+        Decorator
     }
 
     public class Token
@@ -74,12 +73,12 @@ namespace CodeHighlighter
 
     public struct Position
     {
-        private int LineIndex, CharIndex;
+        private int lineIndex, charIndex;
         private object p;
 
         public Position(int lineIndex, object p) : this()
         {
-            LineIndex = lineIndex;
+            this.lineIndex = lineIndex;
             this.p = p;
         }
     }
@@ -113,7 +112,7 @@ namespace CodeHighlighter
             foreach (var tokenMapping in Tokens)
             {
                 var v = Regex.Match(line, tokenMapping.RegularExpression);
-                if(!v.Success)
+                if (!v.Success)
                     continue;
                 if (nearestIndex == -1 || v.Index < nearestIndex)
                 {
@@ -134,22 +133,22 @@ namespace CodeHighlighter
                 var regexToken = buf.RegularExpression;
                 var tokenType = buf.Type;
 
-                if (tokenType == TokenTypes.NAME && CheckBuiltin(regexToken.Groups[0].Value))
-                    tokenType = TokenTypes.BUILTIN;
-                if (tokenType == TokenTypes.NAME && CheckKeyword(regexToken.Groups[0].Value))
-                    tokenType = TokenTypes.KEYWORD;
+                if (tokenType == TokenTypes.Name && CheckBuiltin(regexToken.Groups[0].Value))
+                    tokenType = TokenTypes.Builtin;
+                if (tokenType == TokenTypes.Name && CheckKeyword(regexToken.Groups[0].Value))
+                    tokenType = TokenTypes.Keyword;
                 if (!found)
                     break;
                 var start = new Position(lineIndex, offset + regexToken.Index);
                 var end = new Position(lineIndex, offset + regexToken.Index + regexToken.Length);
 
                 var content = regexToken.Groups[0].Value;
-                if (tokenType == TokenTypes.NAME)
+                if (tokenType == TokenTypes.Name)
                 {
-                    if (!Regex.Match(CorrectName, content).Success)
-                        tokenType = TokenTypes.INCORRECT_NAME;
-                    if (CheckVariable && Regex.Match(Variable, content).Success)
-                        tokenType = TokenTypes.VARIABLE;
+                    if (!Regex.Match(content, CorrectName).Success)
+                        tokenType = TokenTypes.IncorrectName;
+                    if (CheckVariable && Regex.Match(content, Variable).Success)
+                        tokenType = TokenTypes.Variable;
                 }
                 yield return new Token(tokenType, content, start, end);
                 var regexEnd = regexToken.Index + regexToken.Length;
@@ -169,16 +168,16 @@ namespace CodeHighlighter
                 index++;
                 foreach (var token in HandleLine(line, index))
                 {
-                    if (token.Type == TokenTypes.INDENT)
+                    if (token.Type == TokenTypes.Indent)
                     {
                         currentIndent++;
                         if (currentIndent > indent)
                         {
                             indent = currentIndent;
-                            token.Type = TokenTypes.NEW_INDENT;
+                            token.Type = TokenTypes.NewIndent;
                         }
                     }
-                    else if (token.Type == TokenTypes.LINE_BREAK)
+                    else if (token.Type == TokenTypes.LineBreak)
                     {
                         currentIndent = 0;
                     }
@@ -187,7 +186,7 @@ namespace CodeHighlighter
                         while (indent > currentIndent)
                         {
                             indent--;
-                            yield return new Token(TokenTypes.DEDENT, "", token.Start, token.Start);
+                            yield return new Token(TokenTypes.Dedent, "", token.Start, token.Start);
                         }
                     }
                     yield return token;
