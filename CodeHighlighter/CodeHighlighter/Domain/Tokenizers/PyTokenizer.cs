@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CodeHighlighter.Tokenizers
+namespace CodeHighlighter.Domain.Tokenizers
 {
     internal class PyTokenizer : BaseTokenizer
     {

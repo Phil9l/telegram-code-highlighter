@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using CodeHighlighter.Tokenizers;
-using Ninject;
+﻿using CodeHighlighter.Domain.Tokenizers;
 
 namespace CodeHighlighter
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var tokenizer = new PyTokenizer();
             //var tokens = tokenizer.Tokenize(new List<string> { "def f(x):", "   return x + 5" });

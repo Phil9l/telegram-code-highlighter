@@ -1,88 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace CodeHighlighter
+namespace CodeHighlighter.Domain
 {
-    public enum TokenTypes
-    {
-        Comment,
-        Number,
-        Op,
-        String,
-        Indent,
-        Dedent,
-        Name,
-        Builtin,
-        Keyword,
-        LineBreak,
-        NewIndent,
-        IncorrectName,
-        Variable,
-        Import,
-        Library,
-        MagicMethod,
-        Decorator
-    }
-
-    public class Token
-    {
-        public readonly string Content;
-        public readonly Position End;
-        public readonly Position Start;
-
-        public Token(TokenTypes type, string content, Position start, Position end)
-        {
-            Type = type;
-            Content = content;
-            Start = start;
-            End = end;
-        }
-
-        public TokenTypes Type { get; set; }
-    }
-
-    public struct TokenMapping
-    {
-        public string RegularExpression;
-        public TokenTypes Type;
-
-        public TokenMapping(string regularExpression, TokenTypes type)
-        {
-            RegularExpression = regularExpression;
-            Type = type;
-        }
-    }
-
-    public struct ParsedData
-    {
-        public Match RegularExpression;
-        public TokenTypes Type;
-        public bool Found;
-
-        public ParsedData(Match regularExpression, TokenTypes type, bool found)
-        {
-            RegularExpression = regularExpression;
-            Type = type;
-            Found = found;
-        }
-
-        public ParsedData(Match regularExpression, TokenTypes type) : this(regularExpression, type, true)
-        {
-        }
-    }
-
-    public struct Position
-    {
-        private int lineIndex, charIndex;
-        private object p;
-
-        public Position(int lineIndex, object p) : this()
-        {
-            this.lineIndex = lineIndex;
-            this.p = p;
-        }
-    }
-
     public abstract class BaseTokenizer
     {
         public abstract string Name { get; }

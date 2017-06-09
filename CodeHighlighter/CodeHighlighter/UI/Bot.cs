@@ -9,11 +9,11 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using File = System.IO.File;
 
-namespace CodeHighlighter
+namespace CodeHighlighter.UI
 {
     internal class TelegramBot
     {
-        private readonly TelegramBotClient bot = new TelegramBotClient("393926966:AAG158H_fhtctWo97uTB8R0ZQIgQDdq02Zc");
+        private readonly TelegramBotClient bot = new TelegramBotClient("Token");
         private readonly Dictionary<string, bool> cancelled = new Dictionary<string, bool>();
 
         public void Serve()

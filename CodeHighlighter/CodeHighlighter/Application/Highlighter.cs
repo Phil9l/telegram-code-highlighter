@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using CodeHighlighter.Domain;
 
-namespace CodeHighlighter
+namespace CodeHighlighter.Application
 {
     internal class Highlighter
     {
