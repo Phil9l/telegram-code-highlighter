@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using CodeHighlighter.Domain.Tokenizers;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
@@ -13,7 +14,7 @@ namespace CodeHighlighter.UI
 {
     internal class TelegramBot
     {
-        private readonly TelegramBotClient bot = new TelegramBotClient("Token");
+        private readonly TelegramBotClient bot = new TelegramBotClient("393926966:AAG158H_fhtctWo97uTB8R0ZQIgQDdq02Zc");
         private readonly Dictionary<string, bool> cancelled = new Dictionary<string, bool>();
 
         public void Serve()
@@ -64,7 +65,7 @@ namespace CodeHighlighter.UI
                 await bot.SendTextMessageAsync(message.Chat.Id, "Choose your language!",
                     replyMarkup: keyboard);
 
-
+                var tokenizer = new PyTokenizer();
                 await Task.Delay(5000); // Imitation of highlighter work
 
                 if (!cancelled[username])

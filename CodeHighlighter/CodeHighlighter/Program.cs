@@ -1,4 +1,7 @@
 ﻿using CodeHighlighter.Domain.Tokenizers;
+using CodeHighlighter.UI;
+using Ninject;
+using Ninject.Extensions.Conventions;
 
 namespace CodeHighlighter
 {
