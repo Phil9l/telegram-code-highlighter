@@ -17,8 +17,11 @@ ID бота в Телеграме: @oophighlighterbot
 * [Tests](https://github.com/Phil9l/telegram-code-highlighter/tree/master/CodeHighlighter/CodeHighlighter/Tests) — тесты.
 
 ### Точки расширения
-1. Возможность наследоваться от BaseTokenizer, таким образом добавлять работу с новыми языками программирования.
-2. Возможность получать код из Telegram разными способами:
+* Возможность наследоваться от BaseTokenizer, таким образом добавлять работу с новыми языками программирования.
+* Возможность получать код из Telegram разными способами:
   * Из файла
   * Plain-text в сообщении
   * Один из стандартных сайтов для передачи кода (pastebin.com, gist.github.com и т.д.)
+
+### DI
+In progress...
