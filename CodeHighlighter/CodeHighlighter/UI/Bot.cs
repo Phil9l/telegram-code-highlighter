@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using CodeHighlighter.Application;
+using CodeHighlighter.Domain;
 using CodeHighlighter.Domain.Tokenizers;
 using Telegram.Bot;
 using Telegram.Bot.Args;
@@ -18,12 +19,14 @@ namespace CodeHighlighter.UI
         private readonly TelegramBotClient bot = new TelegramBotClient("393926966:AAG158H_fhtctWo97uTB8R0ZQIgQDdq02Zc");
         private readonly Dictionary<string, bool> cancelled = new Dictionary<string, bool>();
 
-        public TelegramBot(IMessageParser[] parsers)
+        public TelegramBot(IMessageParser[] parsers, BaseTokenizer[] tokenizers)
         {
             Parsers = parsers;
+            Tokenizers = tokenizers;
         }
 
         public IMessageParser[] Parsers { get; set; }
+        public BaseTokenizer[] Tokenizers { get; }
 
         public void Serve()
         {
@@ -53,10 +56,12 @@ namespace CodeHighlighter.UI
             var codeAndLanguage = await GetCodeFromMessage(message);
             var highlighter = new Highlighter();
             var text = codeAndLanguage.Code;
+            var language = codeAndLanguage.Language;
             text = text.Replace("\r\n", "\n"); // For windows newlines
-            var tokens = highlighter.TokenizeSourceCode(text, new PyTokenizer()); // Change to selection
+            var tokenizer = GetTokenizer(language);
+            var tokens = highlighter.TokenizeSourceCode(text, tokenizer); // Change to selection
             var result = highlighter.HtmlHighlight(tokens);
-            var page = highlighter.GetHTMLPage("python", "python", result);
+            var page = highlighter.GetHTMLPage(language, language, result);
             var path = "Z:\\home\\localhost\\www\\"; // Path to web folder
             var randomName = Guid.NewGuid().ToString();
             File.WriteAllText(path + randomName + ".html", page);
@@ -71,6 +76,16 @@ namespace CodeHighlighter.UI
                 await bot.SendTextMessageAsync(message.Chat.Id, usage,
                     replyMarkup: new ReplyKeyboardHide());
             }
+        }
+
+        private BaseTokenizer GetTokenizer(string language)
+        {
+            foreach (var tokenizer in Tokenizers)
+            {
+                if (tokenizer.Name == language)
+                    return tokenizer;
+            }
+            return new BashTokenizer();
         }
 
         private async Task<CodeWithLanguage> GetCodeFromMessage(Message message)

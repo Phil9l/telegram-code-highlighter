@@ -2,9 +2,9 @@
 
 namespace CodeHighlighter.Domain.Tokenizers
 {
-    internal class PyTokenizer : BaseTokenizer
+    public class PyTokenizer : BaseTokenizer
     {
-        public override string Name => "Python";
+        public override string Name => "python";
 
         public override List<string> Extensions => new List<string>
         {

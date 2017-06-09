@@ -1,6 +1,4 @@
-﻿using System.IO;
-using CodeHighlighter.Application;
-using CodeHighlighter.Domain.Tokenizers;
+﻿using CodeHighlighter.Domain;
 using CodeHighlighter.UI;
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -18,6 +16,11 @@ namespace CodeHighlighter
                 .SelectAllClasses()
                 .InheritedFrom<IMessageParser>()
                 .BindAllInterfaces());
+            container.Bind(kernel => kernel
+                .FromThisAssembly()
+                .SelectAllClasses()
+                .InheritedFrom<BaseTokenizer>()
+                .BindAllBaseClasses());
             var bot = container.Get<TelegramBot>();
             bot.Serve();
         }

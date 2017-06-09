@@ -2,9 +2,9 @@
 
 namespace CodeHighlighter.Domain.Tokenizers
 {
-    internal class BashTokenizer : BaseTokenizer
+    public class BashTokenizer : BaseTokenizer
     {
-        public override string Name => "Bash";
+        public override string Name => "bash";
 
         public override List<string> Extensions => new List<string>
         {

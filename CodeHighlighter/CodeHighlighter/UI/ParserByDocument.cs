@@ -16,6 +16,7 @@ namespace CodeHighlighter.UI
             var file = await bot.GetFileAsync(message.Document.FileId);
 
             var filename = message.Document.FileName;
+            var extension = Path.GetExtension(filename);
 
             using (var saveDocumentStream = System.IO.File.Open(filename, FileMode.Create))
             {
@@ -25,7 +26,8 @@ namespace CodeHighlighter.UI
             var text = System.IO.File.ReadAllText(filename);
             await bot.SendTextMessageAsync(message.Chat.Id, "Thx for the code");
 
-            return new CodeWithLanguage(text, "python");
+            var language = extension == ".py" ? "python" : "bash";
+            return new CodeWithLanguage(text, language);
         }
     }
 }
