@@ -25,4 +25,4 @@ ID бота в Телеграме: @oophighlighterbot
 
 ### DI
 
-* [Program.cs#L16](https://github.com/Phil9l/telegram-code-highlighter/blob/master/CodeHighlighter/CodeHighlighter/Program.cs#L16) — собирает все парсеры в точке сборки.
+* [Program.cs#L16](https://github.com/Phil9l/telegram-code-highlighter/blob/master/CodeHighlighter/CodeHighlighter/Program.cs#L16) — собирает все парсеры и токенайзеры в точке сборки.
