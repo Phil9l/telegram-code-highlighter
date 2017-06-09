@@ -116,7 +116,10 @@ namespace CodeHighlighter
                 if(!v.Success)
                     continue;
                 if (nearestIndex == -1 || v.Index < nearestIndex)
+                {
+                    nearestIndex = v.Index;
                     result = new ParsedData(v, tokenMapping.Type);
+                }
             }
             return result;
         }
